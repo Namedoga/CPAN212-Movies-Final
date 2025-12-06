@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "node server.js",
-  "dev": "npx nodemon server.js"
-},
-
-
+    "start": "node server.js",
+    "dev": "npx nodemon server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Namedoga/CPAN212-Movies-Final.git"
