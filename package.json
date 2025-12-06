@@ -1,0 +1,33 @@
+{
+  "name": "cpan212-movies-final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "start": "node server.js",
+  "dev": "npx nodemon server.js"
+},
+
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Namedoga/CPAN212-Movies-Final.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Namedoga/CPAN212-Movies-Final/issues"
+  },
+  "homepage": "https://github.com/Namedoga/CPAN212-Movies-Final#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.2.1",
+    "mongoose": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
