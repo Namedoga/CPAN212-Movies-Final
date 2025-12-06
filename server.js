@@ -1,27 +1,30 @@
 const express = require("express");
 const path = require("path");
+const mongoose = require("mongoose");
+const Movie = require("./models/Movie");
+
+
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = 8000;
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
 
-const movies = [
-  { name: "Inception", year: 2010, rating: 9 },
-  { name: "The Dark Knight", year: 2008, rating: 9 },
-  { name: "Interstellar", year: 2014, rating: 8 },
-  { name: "Dune", year: 2021, rating: 8 },
-  { name: "Joker", year: 2019, rating: 8 }
-];
+mongoose
+  .connect("mongodb+srv://myuser:<db_password>@moviescluster.rclix8e.mongodb.net/?appName=MoviesCluster")
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 
 app.get("/", (req, res) => {
   return res.render("home.ejs");
 });
 
-app.get("/movies", (req, res) => {
-  return res.render("movies.ejs", { movies: movies });
+app.get("/movies", async (req, res) => {
+  const movies = await Movie.find().lean();
+  return res.render("movies.ejs", { movielist: movies });
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Running http://localhost:${PORT}`);
 });
