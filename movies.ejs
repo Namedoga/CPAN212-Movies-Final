@@ -1,0 +1,20 @@
+<%- include('partials/header', { title: 'Movies' }) %>
+
+<h2>All Movies</h2>
+
+<% if (movies.length === 0) { %>
+  <p>No movies found.</p>
+<% } else { %>
+  <div class="moviesGrid">
+    <% for (let i = 0; i < movies.length; i++) { %>
+      <div class="movieCard">
+        <h3><%= movies[i].name %></h3>
+        <p>Year: <%= movies[i].year %></p>
+        <p>Rating: <%= movies[i].rating %></p>
+        <p>Movie <%= i + 1 %></p>
+      </div>
+    <% } %>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>
