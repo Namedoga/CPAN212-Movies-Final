@@ -12,9 +12,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 mongoose
-  .connect("mongodb+srv://myuser:<db_password>@moviescluster.rclix8e.mongodb.net/?appName=MoviesCluster")
+  .connect("mongodb+srv://myuser:MyPass123@moviescluster.rclix8e.mongodb.net/moviesdb")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
+
 
 app.get("/", (req, res) => {
   return res.render("home.ejs");
