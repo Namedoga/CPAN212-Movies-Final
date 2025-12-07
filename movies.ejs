@@ -1,4 +1,4 @@
-<%- include('partials/header', { title: 'Movies' }) %>
+<%- include('views/partials/header', { title: 'Movies' }) %>
 
 <h1>Movies</h1>
 
@@ -7,9 +7,26 @@
 <% } else { %>
   <ul>
     <% movielist.forEach(m => { %>
-      <li><%= m.name %> - <%= m.year %> - Rating: <%= m.rating %></li>
+      <li>
+        <strong><%= m.name %></strong> - <%= m.year %> - Rating: <%= m.rating %>
+
+        <% if (m.imageUrl) { %>
+          <br>
+          <img src="<%= m.imageUrl %>" alt="<%= m.name %>" style="max-width:150px;">
+        <% } %>
+
+        <% if (currentUserId && String(m.owner) === String(currentUserId)) { %>
+          <br>
+          <a href="/movies/<%= m._id %>/edit">Edit</a>
+          <form method="post" action="/movies/<%= m._id %>/delete" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        <% } %>
+      </li>
+      <hr>
     <% }) %>
   </ul>
 <% } %>
 
-<%- include('partials/footer') %>
+<%- include('views/partials/footer') %>
+
