@@ -32,7 +32,7 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect("mongodb+srv://myuser:MyPass123@moviescluster.rclix8e.mongodb.net/moviesdb")
+mongoose.connect("mongodb+srv://n01685318_carl:CPAN212@cluster0.fbmbxgn.mongodb.net/?appName=Cluster0")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
