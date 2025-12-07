@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-const Movie = require("./models/Movie");
+
 
 
 const app = express();
@@ -11,20 +11,19 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
-mongoose
-  .connect("mongodb+srv://myuser:MyPass123@moviescluster.rclix8e.mongodb.net/moviesdb")
+mongoose.connect("mongodb+srv://myuser:MyPass123@moviescluster.rclix8e.mongodb.net/moviesdb")
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
+require("dotenv").config();
 
 app.get("/", (req, res) => {
-  return res.render("home.ejs");
+  return res.render("home");
 });
 
-app.get("/movies", async (req, res) => {
-  const movies = await Movie.find().lean();
-  return res.render("movies.ejs", { movielist: movies });
-});
+// Routes
+const movieRoutes = require("./routes/movies");
+app.use("/movies", movieRoutes);
 
 app.listen(PORT, () => {
   console.log(`Running http://localhost:${PORT}`);
