@@ -1,0 +1,33 @@
+<%- include('../partials/header', { title: 'Edit Movie' }) %>
+
+<h2>Edit Movie</h2>
+
+<form method="post" action="/movies/<%= movie._id %>/edit">
+  <p>
+    <label>Name</label>
+    <input type="text" name="name" value="<%= movie.name %>" required>
+  </p>
+  <p>
+    <label>Description</label>
+    <textarea name="description" required><%= movie.description %></textarea>
+  </p>
+  <p>
+    <label>Year</label>
+    <input type="number" name="year" value="<%= movie.year %>" required>
+  </p>
+  <p>
+    <label>Genres (comma-separated)</label>
+    <input type="text" name="genres" value="<%= movie.genres.join(', ') %>" required>
+  </p>
+  <p>
+    <label>Rating</label>
+    <input type="number" step="0.1" name="rating" value="<%= movie.rating %>" required>
+  </p>
+  <p>
+    <label>Image URL</label>
+    <input type="text" name="imageUrl" value="<%= movie.imageUrl %>">
+  </p>
+  <button type="submit">Update</button>
+</form>
+
+<%- include('../partials/footer') %>
