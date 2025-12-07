@@ -1,0 +1,35 @@
+<%- include('partials/header', { title: 'Add Movie' }) %>
+
+    <h1>Add a New Movie</h1>
+
+    <% if (errorMessage) { %>
+        <p style="color:red;">
+            <%= errorMessage %>
+        </p>
+        <% } %>
+
+            <form action="/movies" method="POST">
+                <label>Name:</label>
+                <input type="text" name="name" required><br>
+
+                <label>Description:</label>
+                <textarea name="description" required></textarea><br>
+
+                <label>Year:</label>
+                <input type="number" name="year" required><br>
+
+                <label>Genres (comma separated):</label>
+                <input type="text" name="genres" required><br>
+
+                <label>Rating (1–10):</label>
+                <input type="number" name="rating" min="1" max="10" required><br>
+
+                <label>Image URL:</label>
+                <input type="text" name="imageUrl"><br>
+
+                <button type="submit">Add Movie</button>
+            </form>
+
+            <p><a href="/movies">Back to Movies List</a></p>
+
+            <%- include('partials/footer') %>

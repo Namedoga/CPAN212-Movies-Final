@@ -1,0 +1,11 @@
+<%- include('partials/header', { title: 'Home' }) %>
+
+  <h2>Welcome to the Movies App</h2>
+
+  <% for (let i=0; i < 3; i++) { %>
+    <p>This is server-side templating using EJS.</p>
+    <% } %>
+
+      <p><a href="/movies">Go to Movies List</a></p>
+
+      <%- include('partials/footer') %>
