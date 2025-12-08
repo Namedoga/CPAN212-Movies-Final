@@ -3,6 +3,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 
@@ -13,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 app.set("view engine", "ejs");
-app.set("views", path.join(__dirname)); // because home.ejs is in root
+app.set("views", path.join(__dirname, "views")); // because home.ejs is in root
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
@@ -32,7 +34,7 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect("mongodb+srv://n01685318_carl:CPAN212@cluster0.fbmbxgn.mongodb.net/?appName=Cluster0")
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
 
@@ -43,7 +45,7 @@ function requireLogin(req, res, next) {
   next();
 }
 
-require("dotenv").config();
+
 
 app.get("/", (req, res) => {
   return res.render("home");
@@ -51,7 +53,7 @@ app.get("/", (req, res) => {
 
 app.get("/movies", async (req, res) => {
   const movies = await Movie.find().lean();
-  return res.render("movies.ejs", {
+  return res.render("movies", {
     movielist: movies
   });
 });
@@ -59,7 +61,7 @@ app.get("/movies", async (req, res) => {
 //authentication routes
 
 app.get("/register", (req, res) => {
-  res.render("views/auth/register.ejs");
+  res.render("auth/register");
 });
 
 app.post("/register", async (req, res) => {
@@ -76,7 +78,7 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-  res.render("views/auth/login.ejs");
+  res.render("auth/login");
 });
 
 app.post("/login", async (req, res) => {
@@ -107,7 +109,7 @@ app.post("/logout", (req, res) => {
 //protected crud routes
 
 app.get("/movies/new", requireLogin, (req, res) => {
-  res.render("views/movies/new.ejs");
+  res.render("movies/new");
 });
 
 app.post("/movies", requireLogin, async (req, res) => {
@@ -141,7 +143,7 @@ app.get("/movies/:id/edit", requireLogin, async (req, res) => {
     return res.status(403).send("Not allowed");
   }
 
-  res.render("views/movies/edit.ejs", { movie });
+  res.render("movies/edit", { movie });
 });
 
 app.post("/movies/:id/edit", requireLogin, async (req, res) => {
@@ -189,8 +191,8 @@ app.post("/movies/:id/delete", requireLogin, async (req, res) => {
   res.redirect("/movies");
 });
 // Routes
-const movieRoutes = require("./routes/movies");
-app.use("/movies", movieRoutes);
+// const movieRoutes = require("./routes/movies");
+// app.use("/movies", movieRoutes);
 
 app.listen(PORT, () => {
   console.log(`Running http://localhost:${PORT}`);
