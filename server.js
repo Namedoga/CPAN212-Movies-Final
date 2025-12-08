@@ -10,7 +10,7 @@ const Movie = require("./models/movie");
 const User = require("./models/user");
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname)); // because home.ejs is in root
