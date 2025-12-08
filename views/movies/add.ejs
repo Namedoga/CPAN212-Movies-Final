@@ -1,48 +1,33 @@
-<%- include('header') %>  <!-- Assuming your header partial is views/header.ejs -->
+<%- include('../partials/header', { title: 'Add Movie' }) %>
 
-<h1>Add a New Movie</h1>
+<h2>Add a New Movie</h2>
 
-<!-- Optional: Display errors if backend sends them -->
-<% if (errors && errors.length > 0) { %>
-    <div class="error-box">
-        <ul>
-            <% errors.forEach(e => { %>
-                <li><%= e %></li>
-            <% }) %>
-        </ul>
-    </div>
-<% } %>
-
-<form action="/movies" method="POST" class="movie-form">
-    <div class="form-group">
-        <label for="name">Movie Name:</label>
-        <input type="text" id="name" name="name" value="<%= movie?.name || '' %>" required>
-    </div>
-
-    <div class="form-group">
-        <label for="year">Year:</label>
-        <input type="number" id="year" name="year" value="<%= movie?.year || '' %>" required>
-    </div>
-
-    <div class="form-group">
-        <label for="rating">Rating (0-10):</label>
-        <input type="number" id="rating" name="rating" step="0.1" value="<%= movie?.rating || '' %>" required>
-    </div>
-
-    <div class="form-group">
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" required><%= movie?.description || '' %></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" value="<%= movie?.genre || '' %>" required>
-    </div>
-
-    <button type="submit" class="btn-submit">Add Movie</button>
+<form method="post" action="/movies">
+  <p>
+    <label>Name</label>
+    <input type="text" name="name" value="<%= movie?.name || '' %>" required>
+  </p>
+  <p>
+    <label>Description</label>
+    <textarea name="description" required><%= movie?.description || '' %></textarea>
+  </p>
+  <p>
+    <label>Year</label>
+    <input type="number" name="year" value="<%= movie?.year || '' %>" required>
+  </p>
+  <p>
+    <label>Genres (comma-separated)</label>
+    <input type="text" name="genres" value="<%= movie?.genres?.join(', ') || '' %>" required>
+  </p>
+  <p>
+    <label>Rating</label>
+    <input type="number" step="0.1" name="rating" value="<%= movie?.rating || '' %>" required>
+  </p>
+  <p>
+    <label>Image URL</label>
+    <input type="text" name="imageUrl" value="<%= movie?.imageUrl || '' %>" required>
+  </p>
+  <button type="submit">Add Movie</button>
 </form>
 
-<br>
-<a href="/movies" class="btn-back">Back to Movie List</a>
-
-<%- include('footer') %>  <!-- Assuming your footer partial is views/footer.ejs -->
+<%- include('../partials/footer') %>
