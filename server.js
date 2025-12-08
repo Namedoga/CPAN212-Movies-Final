@@ -51,14 +51,15 @@ app.get("/", (req, res) => {
   return res.render("home");
 });
 
+//authentication routes
+
 app.get("/movies", async (req, res) => {
   const movies = await Movie.find().lean();
+  console.log("Movies found:", movies.length);
   return res.render("movies", {
     movielist: movies
   });
 });
-
-//authentication routes
 
 app.get("/register", (req, res) => {
   res.render("auth/register");
