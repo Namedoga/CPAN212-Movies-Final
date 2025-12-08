@@ -1,32 +1,33 @@
-<%- include('views/partials/header', { title: 'Movies' }) %>
+<%- include('partials/header', { title: 'Movies' }) %>
 
-<h1>Movies</h1>
+  <h1>Movies</h1>
 
-<% if (movielist.length === 0) { %>
-  <p>No movies found</p>
-<% } else { %>
-  <ul>
-    <% movielist.forEach(m => { %>
-      <li>
-        <strong><%= m.name %></strong> - <%= m.year %> - Rating: <%= m.rating %>
+  <% if (movielist.length===0) { %>
+    <p>No movies found</p>
+    <% } else { %>
+      <ul>
+        <% movielist.forEach(m=> { %>
+          <li>
+            <strong>
+              <%= m.name %>
+            </strong> - <%= m.year %> - Rating: <%= m.rating %>
 
-        <% if (m.imageUrl) { %>
-          <br>
-          <img src="<%= m.imageUrl %>" alt="<%= m.name %>" style="max-width:150px;">
-        <% } %>
+                <% if (m.imageUrl) { %>
+                  <br>
+                  <img src="<%= m.imageUrl %>" alt="<%= m.name %>" style="max-width:150px;">
+                  <% } %>
 
-        <% if (currentUserId && String(m.owner) === String(currentUserId)) { %>
-          <br>
-          <a href="/movies/<%= m._id %>/edit">Edit</a>
-          <form method="post" action="/movies/<%= m._id %>/delete" style="display:inline;">
-            <button type="submit">Delete</button>
-          </form>
-        <% } %>
-      </li>
-      <hr>
-    <% }) %>
-  </ul>
-<% } %>
+                    <% if (currentUserId && String(m.owner)===String(currentUserId)) { %>
+                      <br>
+                      <a href="/movies/<%= m._id %>/edit">Edit</a>
+                      <form method="post" action="/movies/<%= m._id %>/delete" style="display:inline;">
+                        <button type="submit">Delete</button>
+                      </form>
+                      <% } %>
+          </li>
+          <hr>
+          <% }) %>
+      </ul>
+      <% } %>
 
-<%- include('views/partials/footer') %>
-
+        <%- include('partials/footer') %>
