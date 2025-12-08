@@ -1,0 +1,48 @@
+<%- include('header') %>  <!-- Assuming your header partial is views/header.ejs -->
+
+<h1>Add a New Movie</h1>
+
+<!-- Optional: Display errors if backend sends them -->
+<% if (errors && errors.length > 0) { %>
+    <div class="error-box">
+        <ul>
+            <% errors.forEach(e => { %>
+                <li><%= e %></li>
+            <% }) %>
+        </ul>
+    </div>
+<% } %>
+
+<form action="/movies" method="POST" class="movie-form">
+    <div class="form-group">
+        <label for="name">Movie Name:</label>
+        <input type="text" id="name" name="name" value="<%= movie?.name || '' %>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" value="<%= movie?.year || '' %>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="rating">Rating (0-10):</label>
+        <input type="number" id="rating" name="rating" step="0.1" value="<%= movie?.rating || '' %>" required>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required><%= movie?.description || '' %></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" value="<%= movie?.genre || '' %>" required>
+    </div>
+
+    <button type="submit" class="btn-submit">Add Movie</button>
+</form>
+
+<br>
+<a href="/movies" class="btn-back">Back to Movie List</a>
+
+<%- include('footer') %>  <!-- Assuming your footer partial is views/footer.ejs -->
